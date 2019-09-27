@@ -4,23 +4,41 @@ import deposito.*
 
 describe "tests" {
 
-	/* vagonP = pasajeros
-	 *    vagonC = carga
-	 */
+	/* vagonP = pasajeros ----- vagonC = carga */
 	var vagonP1
 	var vagonP2
 	var vagonP3
 	var vagonC1
 	var vagonC2
 	var vagonC3
+	var formacion1
+	var formacion2
+	var locomotora1
+	var locomotora2
+	var locomotora3
+	var locomotora4
+	var deposito
 
 	fixture {
 		vagonP1 = new VagonPasajeros(largo = 10, ancho = 3)
 		vagonP2 = new VagonPasajeros(largo = 13, ancho = 2)
 		vagonP3 = new VagonPasajeros(largo = 10, ancho = 2.5)
-		vagonC1 = new VagonCarga()
-		vagonC2 = new VagonCarga()
-		vagonC3 = new VagonCarga()
+		vagonC1 = new VagonCarga(cargaMaxima = 3000)
+		vagonC2 = new VagonCarga(cargaMaxima = 5000)
+		vagonC3 = new VagonCarga(cargaMaxima = 1000)
+		locomotora1 = new Locomotora(maximoArrastre = 10000, pesoMaximo = 1000, velocidadMaxima = 100)
+		locomotora2 = new Locomotora(maximoArrastre = 15000, pesoMaximo = 1500, velocidadMaxima = 100)
+		locomotora3 = new Locomotora(maximoArrastre = 200, pesoMaximo = 250, velocidadMaxima = 150)
+		locomotora4 = new Locomotora(maximoArrastre = 20000, pesoMaximo = 1500, velocidadMaxima = 40)
+		formacion1 = new Formacion(vagonesCarga = [ vagonC1 ], vagonesPasajeros = [ vagonP1 ], locomotoras = [ locomotora1 ])
+		formacion2 = new Formacion(vagonesCarga = [ vagonC2, vagonC3 ], vagonesPasajeros = [ vagonP2, vagonP3 ], locomotoras = [ locomotora2 ])
+		deposito = new Deposito(formaciones = [ formacion1, formacion2 ], locomotoras = [ locomotora3, locomotora4 ])
+	}
+
+
+	test "vagones livianos" {
+		assert.equals()
 	}
 
 }
+
