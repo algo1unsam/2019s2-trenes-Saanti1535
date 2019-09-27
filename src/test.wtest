@@ -5,19 +5,19 @@ import deposito.*
 describe "tests" {
 
 	/* vagonP = pasajeros ----- vagonC = carga */
-	var vagonP1
-	var vagonP2
-	var vagonP3
-	var vagonC1
-	var vagonC2
-	var vagonC3
-	var formacion1
-	var formacion2
-	var locomotora1
-	var locomotora2
-	var locomotora3
-	var locomotora4
-	var deposito
+	const vagonP1
+	const vagonP2
+	const vagonP3
+	const vagonC1
+	const vagonC2
+	const vagonC3
+	const formacion1
+	const formacion2
+	const locomotora1
+	const locomotora2
+	const locomotora3
+	const locomotora4
+	const deposito
 
 	fixture {
 		vagonP1 = new VagonPasajeros(largo = 10, ancho = 3)
@@ -34,7 +34,6 @@ describe "tests" {
 		formacion2 = new Formacion(vagonesCarga = [ vagonC2, vagonC3 ], vagonesPasajeros = [ vagonP2, vagonP3 ], locomotoras = [ locomotora2 ])
 		deposito = new Deposito(formaciones = [ formacion1, formacion2 ], locomotoras = [ locomotora3, locomotora4 ])
 	}
-
 
 	test "vagones livianos" {
 		assert.equals()
