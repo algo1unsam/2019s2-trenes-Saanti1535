@@ -1,0 +1,26 @@
+import trenes.*
+import formaciones.*
+import deposito.*
+
+describe "tests" {
+
+	/* vagonP = pasajeros
+	 *    vagonC = carga
+	 */
+	var vagonP1
+	var vagonP2
+	var vagonP3
+	var vagonC1
+	var vagonC2
+	var vagonC3
+
+	fixture {
+		vagonP1 = new VagonPasajeros(largo = 10, ancho = 3)
+		vagonP2 = new VagonPasajeros(largo = 13, ancho = 2)
+		vagonP3 = new VagonPasajeros(largo = 10, ancho = 2.5)
+		vagonC1 = new VagonCarga()
+		vagonC2 = new VagonCarga()
+		vagonC3 = new VagonCarga()
+	}
+
+}
