@@ -3,8 +3,8 @@ import formaciones.*
 
 class Deposito {
 
-	var formaciones = []
-	var locomotoras = []
+	const property formaciones = []
+	const property locomotoras = []
 
 	method vagonMasPesado() = formaciones.vagonesTotal().max({ vagon => vagon.pesoMaximo() }).asList()
 
