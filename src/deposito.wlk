@@ -6,7 +6,7 @@ class Deposito {
 	const property formaciones = []
 	const property locomotoras = []
 
-	method vagonMasPesado() = formaciones.vagonesTotal().max({ vagon => vagon.pesoMaximo() }).asList()
+	method vagonesMasPesados() = formaciones.map({ formacion => formacion.vagonMasPesado() })
 
 	method necesitaConductorExperimentado() = formaciones.any({ formacion => formacion.esCompleja() })
 
@@ -17,7 +17,10 @@ class Deposito {
 	method existeLocomotoraQuePuedaMoverA(formacion) = self.locomotoraQueAyudaA(formacion) != null
 
 	method agregarLocomotoraA(formacion) {
-		if (not ( formacion.puedeMoverse() ) and self.existeLocomotoraQuePuedaMoverA(formacion)) formacion.add(self.locomotoraQueAyudaA(formacion))
+		if (not ( formacion.puedeMoverse() ) and self.existeLocomotoraQuePuedaMoverA(formacion)) {
+			formacion.locomotoras().add(self.locomotoraQueAyudaA(formacion))
+			self.locomotoras().remove(self.locomotoraQueAyudaA(formacion))
+		}
 	}
 
 }

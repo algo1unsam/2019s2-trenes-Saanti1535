@@ -31,8 +31,12 @@ describe "tests" {
 		locomotora3 = new Locomotora(maximoArrastre = 200, pesoMaximo = 250, velocidadMaxima = 150)
 		locomotora4 = new Locomotora(maximoArrastre = 20000, pesoMaximo = 1500, velocidadMaxima = 40)
 		formacion1 = new Formacion(vagonesCarga = [ vagonC1 ], vagonesPasajeros = [ vagonP1 ], locomotoras = [ locomotora1 ])
-		formacion2 = new Formacion(vagonesCarga = [ vagonC2, vagonC3 ], vagonesPasajeros = [ vagonP2, vagonP3 ], locomotoras = [ locomotora2 ])
-		deposito = new Deposito(formaciones = [ formacion1, formacion2 ], locomotoras = [ locomotora3, locomotora4 ])
+		formacion2 = new Formacion(vagonesCarga = [ vagonC2, vagonC3 ], vagonesPasajeros = [ vagonP2, vagonP3 ], locomotoras = [ locomotora4 ])
+		deposito = new Deposito(formaciones = [ formacion1, formacion2 ], locomotoras = [ locomotora2, locomotora3 ])
+		formacion1.juntarVagones()
+		formacion1.juntarTodo()
+		formacion2.juntarVagones()
+		formacion2.juntarTodo()
 	}
 
 	test "cantidad maxima de pasajeros" {
@@ -42,13 +46,51 @@ describe "tests" {
 	}
 
 	test "cantidad total de vagones" {
-		assert.equals(2, formacion1.cantidadDeVagones()) // NO ENCUENTRO EL ERROR
-		assert.equals(4, formacion2.cantidadDeVagones()) // NO ENCUENTRO EL ERROR
+		assert.equals(2, formacion1.cantidadDeVagones())
+		assert.equals(4, formacion2.cantidadDeVagones())
 	}
 
-	test "cantidad de vagones livianos en una formacion" {
+	test "PUNTO 1: cantidad de vagones livianos en una formacion" {
 		assert.equals(1, formacion1.cantidadVagonesLivianos())
 		assert.equals(2, formacion2.cantidadVagonesLivianos())
+	}
+
+	test "PUNTO 2: velocidad maxima de las formacioens" {
+		assert.equals(100, formacion1.velocidadMaxima())
+		assert.equals(40, formacion2.velocidadMaxima())
+	}
+
+	test "PUNTO 3: formaciones eficientes" {
+		assert.that(formacion1.esEficiente())
+		assert.that(formacion2.esEficiente())
+	}
+
+	test "PUNTO 4: formacion puede moverse" {
+		assert.notThat(formacion1.puedeMoverse())
+		assert.that(formacion2.puedeMoverse())
+	}
+
+	test "PUNTO 5: kilos de empuje faltantes para mover una formacion" {
+		assert.equals(1460, formacion1.kilosDeEmpujeNecesarios())
+		assert.equals(0, formacion2.kilosDeEmpujeNecesarios())
+	}
+
+	test "PUNTO 6: vagones mas pesados de cada formacion" {
+		assert.equals([ vagonP1, vagonP2 ], deposito.vagonesMasPesados())
+	}
+
+	test "PUNTO 7: si un deposito necesita un conductor experimentado" {
+		assert.that(deposito.necesitaConductorExperimentado())
+	}
+
+	test "PUNTO 8: agregar locomotora a una formacion determinada" {
+		deposito.agregarLocomotoraA(formacion1)
+		assert.equals(2, formacion1.locomotoras().size()) // la formacion fue creada con 1 sola locomotora, se le agregó una más para que pueda moverse
+		assert.equals(1, deposito.locomotoras().size()) // al agregar una locomotora a una formacion, la primera se remueve del deposito
+		deposito.locomotoras().add(locomotora2) // pongo de nuevo en el deposito la locomotora que le agregué a la formacion anterior
+		deposito.agregarLocomotoraA(formacion2)
+		assert.equals(1, formacion2.locomotoras().size()) // la formacion puede moverse con su locomotora, no se le agregó ninguna
+		assert.equals(2, deposito.locomotoras().size()) // no se removió ninguna locomotora del deposito
 	}
 
 }
